@@ -1,0 +1,39 @@
+.Sidebar{
+    display:flex;
+    flex-direction: column;
+    justify-content:space-between;
+    padding:0px 20px;
+    width:16%;
+    background-color:#f7f9f9;
+    height:100%;
+}
+
+.Sidebarsub{
+    display: flex;
+    flex-direction: column;
+    margin:10px 0px
+}
+.SidebarItem{
+    display: flex;
+    flex-direction: row;
+    justify-content:space-between;
+    margin: 10px 0px;
+    padding: 10px;
+    border-radius: 5px;
+}   
+.SidebarItem:hover{
+    background-color: rgb(193, 236, 243);
+}
+.Sidebaritemimg{
+    width:20px;
+    height:20px
+}
+.Sidebaritemtext{
+    width:80%;
+    font-size: 20;
+    text-align: left;
+}
+.Sidebarlink {
+    text-decoration: none;
+    color: inherit;
+}
