@@ -4,9 +4,12 @@ import Expenses from "./screens/Expenses.js";
 import Lendings from "./screens/Lendings.js";
 import Journals from "./screens/Journals.js";
 import Dashbaord from "./screens/Dashboard.js";
+import { Provider } from "react-redux";
+import { mystore } from "./store.js";
 import { createBrowserRouter,BrowserRouter,Router,Route,Routes } from "react-router-dom";
 function App() {
   return (
+    <Provider store={mystore}>
     <BrowserRouter>
     <div style={{width:'100%',height:'100%'}}>
       <Routes>
@@ -18,6 +21,7 @@ function App() {
       </Routes>
     </div>
     </BrowserRouter>
+    </Provider>
   );
 }
 
