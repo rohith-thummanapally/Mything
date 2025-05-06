@@ -18,16 +18,16 @@ export default class Expensescontroller
                 let response=await this.expensesmodel.addExpense(userid,name,amount,category,tags);
                 if(response["success"])
                 {
-                    return res.status(201).send({"msg":response['msg'],"data":response["data"]});
+                    return res.status(201).send({"success":true,"msg":response['msg'],"data":response["data"]});
                 }
                 else
                 {
-                    return res.status(400).send({"msg":response["msg"],"data":response["data"]});
+                    return res.status(400).send({"success":false,"msg":response["msg"],"data":response["data"]});
                 }
             }
             else
             {
-                return res.status(500).send({"msg":'Some of the required mandatory fields are missing please check'});
+                return res.status(500).send({"success":false,"msg":'Some of the required mandatory fields are missing please check'});
             }
         }
         catch(err)
@@ -41,6 +41,7 @@ export default class Expensescontroller
         try
         {
             console.log('in get user Expenses controller');
+            console.log(req.body);
             let {userid,start,limit,categoires,tags,fromdate,todate}=req.body;
             let user=validateuser(userid);
             if(!user)

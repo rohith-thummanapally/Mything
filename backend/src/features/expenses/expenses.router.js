@@ -6,7 +6,7 @@ const expensecontrollerobj=new Expensescontroller();
 expenseRouter.post('/addexpense',(req,res,next)=>{
     expensecontrollerobj.addExpense(req,res,next);
 })
-expenseRouter.get('/getmyexpenses',(req,res,next)=>{
+expenseRouter.post('/getmyexpenses',(req,res,next)=>{
     expensecontrollerobj.getuserExpenses(req,res,next);
 })  
 

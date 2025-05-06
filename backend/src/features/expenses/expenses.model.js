@@ -81,7 +81,7 @@ export default class Expensesmodel
                 variables.push(categories);
             }   
             let tagcond='';
-            if(tags)
+            if(tags && tags.length>0)
             {
                 tagcond=' and find_in_set(bt.id, ?) ';
                 variables.push(tags.join(','));
@@ -101,7 +101,7 @@ export default class Expensesmodel
             variables.push(limit);
             variables.push(start);
             //select be.id,be.name,be.amount,bc.category_name,group_concat(bt.tag_name),be.createdon from base_expenses be join base_categories bc on be.category=bc.id , base_tags bt where find_in_set(bt.id,be.tags) and userid=1 group by be.id order by be.createdon desc limit 3 offset 0; 
-            let userexpenses=await db.query(`select be.*,bc.category_name,bt.tag_name  from base_expenses be join base_categories bc on bc.id=be.category , base_tags bt where find_in_set(bt.id,be.tags) and be.userid=? ${categorycond} ${tagcond} ${fromdatecond} ${todatecond} order by be.createdon desc limit ? offset ?`,variables);
+            let userexpenses=await db.query(`select be.*,bc.category_name,group_concat(bt.tag_name)  from base_expenses be join base_categories bc on bc.id=be.category , base_tags bt where find_in_set(bt.id,be.tags) and be.userid=? ${categorycond} ${tagcond} ${fromdatecond} ${todatecond} group by be.id order by be.createdon desc limit ? offset ?`,variables);
             return userexpenses[0];
         }
         catch(err)
