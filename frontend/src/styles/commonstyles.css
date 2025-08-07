@@ -1,0 +1,54 @@
+.filterdropdown{
+    width: 100%;
+    border-radius: 5px;
+    border: 0.2px solid grey;
+    height:30px;
+    padding:3px;
+    box-shadow: 2px 2px 2px 0 lightgray;
+}
+
+.p-dropdown-panel {
+    background-color: white !important;
+    border: 1px solid #ccc;
+    z-index: 1000;
+    padding: 2px;
+}
+
+.p-multiselect-panel{
+    background-color: white !important;
+    border: 1px solid #ccc;
+    z-index: 1000;
+    padding: 2px;
+}
+.filtermultiselect{
+    min-width: 100%;
+    max-width: 100%;
+    border-radius: 5px;
+    border: 0.2px solid grey;
+    height:30px;
+    padding:3px;
+    box-shadow: 2px 2px 2px 0 lightgray;
+}
+.p-multiselect-item .pi-check {
+    display: inline-block;
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.p-checkbox-box{
+    display: none;
+}
+.dateclass{
+    width:100%;
+    border-radius: 5px;
+    border: 0.2px solid grey;
+    height:30px;
+    box-shadow: 2px 2px 2px 0 lightgray;
+}
+.p-datepicker{
+    background-color: white !important;
+    border: 1px solid #ccc;
+    z-index: 1000;
+    padding: 2px;
+}

@@ -1,112 +1,73 @@
 import { useState,useEffect } from "react";
 import '../styles/expenses.css';
-//import '../styles/dashboard.css';
+import '../styles/commonstyles.css';
 import Sidebar from "../components/Sidebar.js";
 import { useDispatch,useSelector } from "react-redux";
-import { getExpensesThunk,addExpenseThunk,expensesreducer,expensesactions,expensesstate } from "../redux/expensesSlice.js";
+import { getExpensesThunk,addExpenseThunk,expensesreducer,expensesactions,expensesstate,getcategoriestagsThunk } from "../redux/expensesSlice.js";
 import { Form } from "react-router-dom";
+import Recentexpenses from "../components/Recentexpenses.js";
+import Expensefilters from "../components/Expensefilters.js";
+import Expenseform from "../components/Expenseform.js";
+import ExpenseGraphs from "../components/ExpenseGraphs.js";
 export default function Expenses(props)
 {
+    let today=new Date();
+    let pastday=new Date();
+    pastday.setDate(today.getDate()-30)
+    let inifromday=pastday.toISOString().split('T')[0];
+    let initoday=new Date().toISOString().split('T')[0];
+    let inicategory='';
+    let initags=[];
     const dispatch=useDispatch();
-    let {expenses,categories,tags}=useSelector(expensesstate);
-    console.log('from expenses screen');
-    console.log(expenses);
-    const [formdata,setformdata]=useState({date:"",amount:0,category:'',name:''});
-    async function getExpenses()
+    const [showform,toggleform]=useState(true);
+    let {categories,tags,allcategories,alltags}=useSelector(expensesstate);
+
+    async function getExpenses(fromday,today,categories,tags)
     {
-        dispatch(getExpensesThunk());
+        dispatch(getExpensesThunk({fromday,today,categories,tags}));
     }
-    function updateformdata(e)
+    async function getcattag() 
     {
-        let tname=e.target.id;
-        setformdata((prev)=>({...prev,[e.target.id]:e.target.value}));
+        dispatch(getcategoriestagsThunk());
     }
+    
     useEffect(()=>{
-        getExpenses();
+        getExpenses(inifromday,initoday,inicategory,initags);
+        getcattag();
     },[]);
-    function submitform(e)
-    {
-        e.preventDefault();
-        let seltagslen=e.target[3].selectedOptions.length;
-        let seltags=[];
-        for(let i=0;i<seltagslen;i++)
-        {
-            seltags.push(Number(e.target[3].selectedOptions[i].value));
-        }
-        formdata['tags']=seltags;
-        dispatch(addExpenseThunk(formdata));
-    }
-    function Expensestable()
-    {
-        return (
-            <table className="expensestable">
-                <thead>
-                <tr>
-                    <th className="exptableheader" style={{width:'5%'}}>Sno</th>
-                    <th className="exptableheader">Note</th>
-                    <th className="exptableheader">Category</th>
-                    <th className="exptableheader">Cost</th>
-                    <th className="exptableheader">Tag</th>
-                </tr>
-                </thead>
-                <tbody>
-                {expenses.map((item,index)=>{
-                    return (
-                        <tr>
-                            <td className="exptabledata">{index+1}</td>
-                            <td className="exptabledata">{item['name']}</td>
-                            <td className="exptabledata">{item['category_name']}</td>
-                            <td className="exptabledata">{item['amount']}</td>
-                            <td className="exptabledata">{item['tags']}</td>
-                        </tr>
-                    )
-                })}
-                </tbody>
-            </table>
-        );
-    }
+    
+    
     return (
         <div className="expenses">
         <Sidebar />
         <div className="pagestyle">
             <div className="pageheader">
-                Expenses
+                <div>
+                    Expenses
+                </div>
+                <div>
+                    <input type="button" className="text-lg font-semibold text-white bg-blue-800 p-[3px] px-[8px] rounded-[5px]" value="Add Expense" onClick={()=>{toggleform(true)}}  />
+                </div>
             </div>
+           
             <div className="expensesbody">
-                <div className="expensesdata">
-                    <div className="expensesfilters">
-                        
-                    </div>
-                    <div className="recentexpenses">
-                        <Expensestable />
+                <div>
+                    <div >
+                        <Expensefilters />
                     </div>
                 </div>
+                <div className="expensesdata">
+                    <div className="recentexpenses">
+                        <Recentexpenses />
+                    </div>
                 <div className="addexpense">
-                    <form className="expenseform" onSubmit={(e)=>{submitform(e)}}>
-                        <p>ADD Expense</p>
-                        <p className="expenseformlabel">Date</p>
-                        <input className="expenseforminpfield" id="date" required onChange={(e)=>{updateformdata(e)}} type="date"/>
-
-                        <p className="expenseformlabel">Amount</p>
-                        <input className="expenseforminpfield" id="amount" required onChange={(e)=>{updateformdata(e)}} type="number" />
-
-                        <p className="expenseformlabel">Category</p>
-                        <select className="expenseforminpfield" id="category" required onChange={(e)=>{updateformdata(e)}}>
-                            <option value="1">Food</option>
-                            <option value="2">Travel</option>
-                        </select>
-
-                        <p className="expenseformlabel">Tags</p>
-                        <select multiple id="tags" required name="tags">
-                            <option value="1">Mandatory</option>
-                            <option value="2">Non-Mandatory</option>
-                            <option value="3">Waste</option>
-                        </select>
-                        <p className="expenseformlabel">Notes</p>
-                        <input className="expenseforminpfield" type="text" id="name" required onChange={(e)=>{updateformdata(e)}}   />
-                        <p className="expenseformlabel"></p>
-                        <input className="expenseforminpfield" type="submit" value="Submit" />
-                    </form>
+                    {showform &&
+                    <Expenseform closeform={toggleform}/>
+                    }
+                    {!showform &&
+                    <ExpenseGraphs />
+                    }   
+                </div>
                 </div>
             </div>
         </div>

@@ -12,26 +12,31 @@
     font-size: 22px;
     font-weight: 650;
     height:7.45%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0px 10px;
 }
 .expensesbody{
     display: flex;
     width:100%;
     height:100%;
-    flex-direction: row;
-}
-.expensesdata{
-    flex: 7;
-    height: 100%;
-    display: flex;
-    margin: 10px;
     flex-direction: column;
 }
-.expensesfilters{
+.expensesdata{
+    flex:12;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+}
+/*.expensesfilter{
     height:10%;
     display: flex;
     flex-direction: row;
-}
+    margin-bottom: 10px;
+}*/
 .recentexpenses{
+    flex:7; 
     max-height: 90%;
     overflow-y: scroll;
     box-shadow: 2px 2px 8px 0 #0000003d;
@@ -54,6 +59,8 @@
 }
 .expenseforminpfield{
     height: 30px;
+    border:1px solid lightgray;
+    border-radius: 3px;
 }
 .expensestable{
     
@@ -70,3 +77,9 @@
     height: 30px;
     text-align: center;
 }
+.expenseFilters{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}   

@@ -5,7 +5,8 @@ const db=await mysql.createConnection({
     'user':'root',
     'database':'mything',
     'waitForConnections': true,
-    'port':3306
+    'port':3306,
+    'dateStrings': true,
 });
 
 
