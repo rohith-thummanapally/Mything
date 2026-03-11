@@ -1,85 +1,111 @@
-.expenses{
+.expenses {
     display: flex;
     flex-direction: row;
     width: 100%;
-    height:100%;
+    height: 100%;
 }
-.pagestyle{
-    width:100%;
-    padding:15px;
+
+.pagestyle {
+    width: 100%;
+    padding: 15px;
 }
-.pageheader{
+
+.pageheader {
     font-size: 22px;
     font-weight: 650;
-    height:7.45%;
+    height: 7.45%;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     padding: 0px 10px;
 }
-.expensesbody{
+
+.expensesbody {
     display: flex;
-    width:100%;
-    height:100%;
+    width: 100%;
+    height: 100%;
     flex-direction: column;
 }
-.expensesdata{
-    flex:12;
+
+.expensesdata {
+    flex: 12;
     height: 100%;
     display: flex;
     flex-direction: row;
 }
+
 /*.expensesfilter{
     height:10%;
     display: flex;
     flex-direction: row;
     margin-bottom: 10px;
 }*/
-.recentexpenses{
-    flex:7; 
+.recentexpenses {
+    flex: 8;
     max-height: 90%;
-    overflow-y: scroll;
-    box-shadow: 2px 2px 8px 0 #0000003d;
+    overflow-y: auto;
+    /* better than scroll */
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    border: 1px solid #f3f4f6;
+    margin-right: 15px;
+    /* Separation from graphs */
 }
-.addexpense{
-    flex:5;
+
+.addexpense {
+    flex: 4;
     height: 100%;
     display: flex;
     margin-left: 5px;
     flex-direction: column;
     box-shadow: 2px 2px 8px 0 #0000003d;
 }
-.expenseform{
+
+.expenseform {
     display: flex;
     flex-direction: column;
-    padding:10px 20px;
+    padding: 10px 20px;
 }
-.expenseformlabel{
-    margin:15px 10px 5px 0px ;
+
+.expenseformlabel {
+    margin: 15px 10px 5px 0px;
 }
-.expenseforminpfield{
+
+.expenseforminpfield {
     height: 30px;
-    border:1px solid lightgray;
+    border: 1px solid lightgray;
     border-radius: 3px;
 }
-.expensestable{
-    
-    width:97.5%;
-    gap: 2px 2px;
-    max-height:70%;
-    overflow-y: scroll;
-}
-.exptableheader{
-    width:15%;
-    
-}
-.exptabledata{
-    height: 30px;
-    text-align: center;
-}
-.expenseFilters{
+
+
+
+.expenseFilters {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     margin-bottom: 10px;
-}   
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 400px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
