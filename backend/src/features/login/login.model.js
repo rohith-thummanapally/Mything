@@ -10,22 +10,23 @@ export default class LoginModel {
         try {
             let retobj = {};
             let encypwd = createHash('md5').update(password).digest('hex');
-            let insid = await db.query('SELECT * FROM jos_users WHERE email = ? AND password = ?', [email, encypwd]);
-            console.log(insid);
-            if (insid[0].length > 0) {
-                let userid = insid?.[0]?.[0]?.['id'];
+            let result = await db.query(
+                'SELECT * FROM jos_users WHERE email = $1 AND password = $2',
+                [email, encypwd]
+            );
+            console.log(result.rows);
+            if (result.rows.length > 0) {
+                let userid = result.rows[0]['id'];
                 retobj["msg"] = "User Found Successfully";
                 retobj["success"] = true;
                 retobj["userid"] = userid;
                 console.log(retobj);
-                //res.status(201).send({"msg":,insertId:insertid,success:true});
                 return retobj;
             }
             else {
                 retobj["msg"] = "Something failed, please try again later";
                 retobj["success"] = false;
                 retobj["userid"] = -1;
-                //res.status(400).send({"msg":"Something failed, please try again later",success:false});
                 return retobj;
             }
         }
@@ -41,20 +42,21 @@ export default class LoginModel {
             console.log('encrypted url is');
             console.log(encryptedurl);
             let encryptedpassword = createHash('md5').update(password).digest('hex');
-            let insid = await db.query('INSERT INTO jos_users (`name`,`email`,`password`,`encryptedurl`,`createdon`) values (?,?,?,?,?)', [name, email, encryptedpassword, encryptedurl, new Date()]);
-            if (insid[0]['affectedRows']) {
-                let insertid = insid[0]['insertId'];
-                retobj["msg"] = "Expense Added Successfully";
+            let result = await db.query(
+                'INSERT INTO jos_users (name, email, password, encryptedurl, createdon) VALUES ($1, $2, $3, $4, $5) RETURNING id',
+                [name, email, encryptedpassword, encryptedurl, new Date()]
+            );
+            if (result.rows.length > 0) {
+                let insertid = result.rows[0]['id'];
+                retobj["msg"] = "Account Created Successfully";
                 retobj["success"] = true;
                 retobj["data"] = insertid;
-                //res.status(201).send({"msg":,insertId:insertid,success:true});
                 return retobj;
             }
             else {
                 retobj["msg"] = "Something failed, please try again later";
                 retobj["success"] = false;
                 retobj["data"] = -1;
-                //res.status(400).send({"msg":"Something failed, please try again later",success:false});
                 return retobj;
             }
         }

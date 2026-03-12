@@ -1,9 +1,9 @@
 import db from "../middlewares/dbconn.js";
 
 export async function validateuser(userid) {
-    let [res] = await db.query("select * from jos_users where id=?", [userid]);
-    console.log('res is', res);
-    if (res.length) {
+    let result = await db.query("SELECT * FROM jos_users WHERE id = $1", [userid]);
+    console.log('res is', result.rows);
+    if (result.rows.length) {
         return true;
     }
     else {
